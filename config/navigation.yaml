@@ -1,0 +1,8 @@
+- name: "Home"
+  link: "/"
+- name: "Projects |  Cases"
+  link: "/projects"
+- name: "Blog"
+  link: "/blog"
+- name: "About"
+  link: "/about"
