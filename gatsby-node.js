@@ -7,9 +7,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
   const { createNodeField } = actions;
   if (node.internal.type === `MarkdownRemark`) {
-    console.log("here, go create");
     const slug = createFilePath({ node, getNode, basePath: `pages` });
-    console.log("slug is", slug);
     createNodeField({
       node,
       name: `slug`,
@@ -30,34 +28,6 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   console.log("create page");
   const projectTemplate = require.resolve("./src/templates/project.tsx");
-
-  const result2 = await graphql(`
-    query {
-      allMarkdownRemark {
-        edges {
-          node {
-            fields {
-              slug
-            }
-          }
-        }
-      }
-    }
-  `);
-  console.log(JSON.stringify(result2, null, 4));
-  console.log("result2.data", JSON.stringify(result2.data));
-  result2.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    createPage({
-      path: node.fields.slug,
-      component: path.resolve(`./src/templates/blog-post.tsx`),
-      context: {
-        // Data passed to context is available
-        // in page queries as GraphQL variables.
-        slug: node.fields.slug,
-      },
-    });
-  });
-
   const result = await wrapper(
     graphql(`
       {
@@ -80,5 +50,57 @@ exports.createPages = async ({ graphql, actions }) => {
         images: `/${node.images}/`,
       },
     });
+  });
+
+  console.log("here all good");
+  const blogPost = path.resolve(`./src/templates/blog-post.js`);
+  console.log("blog post");
+  return graphql(
+    `
+      {
+        allMdx(
+          sort: { fields: [frontmatter___date], order: DESC }
+          limit: 1000
+        ) {
+          edges {
+            node {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+              }
+            }
+          }
+        }
+      }
+    `
+  ).then((result) => {
+    console.log("res", result);
+    if (result.errors) {
+      throw result.errors;
+    }
+
+    // Create blog posts pages.
+    const posts = result.data.allMdx.edges;
+
+    posts.forEach((post, index) => {
+      console.log("post", post);
+      const previous =
+        index === posts.length - 1 ? null : posts[index + 1].node;
+      const next = index === 0 ? null : posts[index - 1].node;
+
+      createPage({
+        path: `blog${post.node.fields.slug}`,
+        component: blogPost,
+        context: {
+          slug: post.node.fields.slug,
+          previous,
+          next,
+        },
+      });
+    });
+
+    return null;
   });
 };
