@@ -27,6 +27,7 @@ module.exports = {
     "gatsby-plugin-styled-components",
     "gatsby-plugin-typescript",
     "gatsby-transformer-yaml",
+    `gatsby-plugin-netlify-cms`,
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -49,6 +50,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `markdown`,
+        path: `${__dirname}/src/pages`,
+      },
+    },
+    {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "images",
@@ -68,9 +76,11 @@ module.exports = {
         trackingId: config.googleAnalyticsID,
       },
     },
+    `gatsby-plugin-offline`,
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-sitemap",
+    `gatsby-transformer-remark`,
     {
       resolve: "gatsby-plugin-manifest",
       options: {
