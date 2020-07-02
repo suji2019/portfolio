@@ -100,7 +100,7 @@ const Index: React.FunctionComponent<PageProps> = ({
 
   return (
     <Layout>
-      <SEO title="Shaojie" banner="default" />
+      <SEO title="qingLan" banner="default" />
       <Area style={pageAnimation}>
         <FirstProject
           to={firstProject.slug}
@@ -158,10 +158,7 @@ export const query = graphql`
         }
       }
     }
-    aboutUs: file(
-      sourceInstanceName: { eq: "images" }
-      name: { eq: "about-us" }
-    ) {
+    aboutUs: file(sourceInstanceName: { eq: "images" }, name: { eq: "spark" }) {
       childImageSharp {
         fluid(quality: 95, maxWidth: 1200) {
           ...GatsbyImageSharpFluid_withWebp

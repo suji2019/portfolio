@@ -24,23 +24,23 @@ const About = () => {
       >
         <h1>Hi. I'm 青lan!</h1>
         <p>
-          生长在魔都，离家去国十年，今混迹纽约,
+          生长在魔都，离家去国十年，混迹纽约,
           在mbb中的一家工作，运用技术手段帮助500强企业实现战略转型。
         </p>
         <p>
-          雁过留声，最近打算开始基于平时做的项目写一些关于数字化转型，企业创投的短文。希望大家能喜欢。
+          最近打算开始基于平时做的项目写一些关于数字化转型，企业创投的短文。希望大家能喜欢。
         </p>
         <p>
           I grew up in Shanghai, moved to the US 10 years ago. Currently living
           in New York and working in a consulting firm (one of MBB), I
           specialize in leveraging technology to solve business problems for
-          Fortune 500 clients and build disruptive vetures with them to get our
+          Fortune 500 clients and build disruptive vetures with them and get our
           clients ready for the upcoming challenges in the next 10 years.
         </p>
         <p>
-          Recently, I was thinking about starting a short tech business blog
-          that focuses at digital transformation and corp venture building based
-          on the projects and cases I have worked on. Hope you like it.
+          Recently, I have started a short tech business blog that focuses at
+          digital transformation and corp venture building based on the projects
+          and cases I have worked on. Hope you like it.
         </p>
       </AnimatedBox>
     </Layout>

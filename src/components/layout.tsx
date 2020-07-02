@@ -6,7 +6,6 @@ import "typeface-work-sans";
 import { Box, Flex } from "../elements";
 import theme from "../../config/theme";
 import reset from "../styles/reset";
-import Logo from "./logo";
 
 const GlobalStyles = createGlobalStyle`
   *::before,
@@ -94,10 +93,11 @@ const isPartiallyActive = ({
   isPartiallyCurrent,
 }: {
   isPartiallyCurrent: boolean;
-}) =>
-  isPartiallyCurrent
+}) => {
+  return isPartiallyCurrent
     ? { className: "navlink-active navlink" }
     : { className: "navlink" };
+};
 
 const PartialNavLink = ({
   children,
@@ -242,11 +242,6 @@ const Layout = ({ children, color }: LayoutProps) => {
               alignItems={["center", "center", "center", "flex-start"]}
               justifyContent="space-between"
             >
-              {/* <Box width={["3rem", "4rem", "5rem", "6rem"]}>
-                <Link to="/" aria-label="home">
-                  <Logo />
-                </Link>
-              </Box> */}
               <Nav
                 color={color}
                 mt={[0, 0, 0, 10]}
@@ -255,6 +250,9 @@ const Layout = ({ children, color }: LayoutProps) => {
                 flexDirection={["row", "row", "row", "column"]}
                 alignItems="flex-start"
               >
+                <Link to="/" aria-label="home">
+                  Home
+                </Link>
                 {data.navigation.nodes.map((item) => (
                   <PartialNavLink to={item.link} key={item.name}>
                     {item.name}

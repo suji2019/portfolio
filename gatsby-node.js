@@ -3,8 +3,6 @@ const path = require(`path`);
 
 // graphql function doesn't throw an error so we have to check to check for the result.errors to throw manually
 exports.onCreateNode = ({ node, getNode, actions }) => {
-  console.log(node.internal.type);
-
   const { createNodeField } = actions;
   if (node.internal.type === `MarkdownRemark`) {
     const slug = createFilePath({ node, getNode, basePath: `pages` });
@@ -12,6 +10,15 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       node,
       name: `slug`,
       value: slug,
+    });
+  }
+
+  if (node.internal.type === `Mdx`) {
+    const value = createFilePath({ node, getNode });
+    createNodeField({
+      name: `slug`,
+      node,
+      value,
     });
   }
 };
@@ -26,7 +33,6 @@ const wrapper = (promise) =>
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  console.log("create page");
   const projectTemplate = require.resolve("./src/templates/project.tsx");
   const result = await wrapper(
     graphql(`
@@ -52,9 +58,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  console.log("here all good");
-  const blogPost = path.resolve(`./src/templates/blog-post.js`);
-  console.log("blog post");
+  const blogPost = path.resolve(`./src/templates/blog-post.tsx`);
   return graphql(
     `
       {
@@ -76,7 +80,6 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     `
   ).then((result) => {
-    console.log("res", result);
     if (result.errors) {
       throw result.errors;
     }
@@ -85,7 +88,6 @@ exports.createPages = async ({ graphql, actions }) => {
     const posts = result.data.allMdx.edges;
 
     posts.forEach((post, index) => {
-      console.log("post", post);
       const previous =
         index === posts.length - 1 ? null : posts[index + 1].node;
       const next = index === 0 ? null : posts[index - 1].node;

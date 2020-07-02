@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: suji2019/personal-blog
+  repo: suji2019/portfolio
 media_folder: content/assets
 public_folder: ../assets
 
