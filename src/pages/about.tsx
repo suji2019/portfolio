@@ -13,10 +13,7 @@ const About = () => {
 
   return (
     <Layout>
-      <SEO
-        title="About"
-        desc="Hi. I'm LekoArts! You can visit my website or my other Gatsby projects."
-      />
+      <SEO title="About" desc="Hi. I'm qingLan!" />
       <AnimatedBox
         style={pageAnimation}
         py={[6, 6, 6, 8]}
